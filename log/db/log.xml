@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<ECRFiles>
+    <file index='1' name='tb_log' caption='All permissions'>
+        <field name='id' type='INTEGER' caption='PRIMARY KEY AUTOINCREMENT' />
+		<field name='caused_by' type='VARCHAR(100)' caption='NOT NULL' />
+        <field name='appname' type='VARCHAR(100)' caption='NOT NULL' />
+		<field name='soft_version' type='VARCHAR(100)' caption='NOT NULL' />
+		<field name='os_version' type='VARCHAR(100)' caption='NOT NULL' />
+		<field name='machine' type='VARCHAR(100)' caption='NOT NULL' />
+        <field name='up_time' type='VARCHAR(100)' caption='NOT NULL' />
+		<field name='other_message' type='VARCHAR(100)' caption='NOT NULL' />
+		<field name='md5' type='VARCHAR(100)' caption='NOT NULL' />
+        <field name='logcontent' type='TEXT' caption='NOT NULL' />
+		<field name='frequency' type='INTEGER' caption='NOT NULL' />
+    </file>
+</ECRFiles>

@@ -1,0 +1,167 @@
+/* MAD f
+Matthew David
+Twitter: @matthewadavid
+-----------------------------------------------------------------------------------------------------------*/
+@font-face {
+    font-family: 'CandelaBook';
+    src: url('fonts/CandelaBook-webfont.eot');
+    src: url('fonts/CandelaBook-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/CandelaBook-webfont.woff') format('woff'),
+         url('fonts/CandelaBook-webfont.ttf') format('truetype'),
+         url('fonts/CandelaBook-webfont.svg#CandelaBook') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'CandelaBookItalic';
+    src: url('fonts/CandelaItalic-webfont.eot');
+    src: url('fonts/CandelaItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/CandelaItalic-webfont.woff') format('woff'),
+         url('fonts/CandelaItalic-webfont.ttf') format('truetype'),
+         url('fonts/CandelaItalic-webfont.svg#CandelaBookItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'CandelaBold';
+    src: url('fonts/CandelaBold-webfont.eot');
+    src: url('fonts/CandelaBold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/CandelaBold-webfont.woff') format('woff'),
+         url('fonts/CandelaBold-webfont.ttf') format('truetype'),
+         url('fonts/CandelaBold-webfont.svg#CandelaBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'CandelaBoldItalic';
+    src: url('fonts/CandelaBoldItalic-webfont.eot');
+    src: url('fonts/CandelaBoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/CandelaBoldItalic-webfont.woff') format('woff'),
+         url('fonts/CandelaBoldItalic-webfont.ttf') format('truetype'),
+         url('fonts/CandelaBoldItalic-webfont.svg#CandelaBoldItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.ui-bar-f {
+	border: 1px solid 		#00A3EF;
+	background: 			#1086C4;
+	color: 					#000000;
+	font-weight: bold;
+	text-shadow: 0 -1px 1px #FFFFFF;
+	background-image: -moz-linear-gradient(top, #15A1D4, #1086C4); /* Mobile FireFox "Fennec" support */
+	background-image: -webkit-gradient(linear,left top,left bottom, color-stop(0,#15A1D4),color-stop(1,#1086C4)); /* iOS and Android support */
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#15A1D4', EndColorStr='#1086C4')"; /* IE 9+Windows Phone 7 support */
+	
+}
+.ui-bar-f, 
+.ui-bar-f input, 
+.ui-bar-f select, 
+.ui-bar-f textarea, 
+.ui-bar-f button {
+	font-family: CandelaBold, Helvetica, Arial, sans-serif;
+}
+.ui-bar-f .ui-link-inherit {
+	color: 					#fff;
+}
+.ui-bar-f .ui-link {
+	color: 					#7cc4e7;
+	font-weight: bold;
+}
+.ui-body-f {
+	border: 1px solid 		#00B21E;
+	background: 			#FFFFFF;
+	color: 					white;
+	 text-shadow: 0 1px 0 	black;
+	font-weight: normal;
+	background-image: -moz-radial-gradient(left top, ellipse farthest-side, #0D5D90 0%, #00A3EF 100%);
+	background-image:-webkit-gradient(linear,left top,left bottom, color-stop(0,#0D5D90),color-stop(1,white)); /* iOS and Android support */
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#0D5D90', EndColorStr='#00A3EF)')";
+}
+.ui-body-f,
+.ui-body-f input,
+.ui-body-f select,
+.ui-body-f textarea,
+.ui-body-f button {
+	font-family: CandelaBook, Helvetica, Arial, sans-serif;
+}
+.ui-body-f .ui-link-inherit {
+	color: 					#fff;
+}
+.ui-body-f .ui-link {
+	color: 					#2489CE;
+	font-weight: bold;
+}
+.ui-br {
+	border-bottom: rgb(130,130,130);
+	border-bottom: rgba(130,130,130,.3);
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+.ui-btn-up-f {
+	border: 1px solid 		#222;
+	background: 			#00BA19;
+	font-weight: bold;
+	color: 					#fff;
+	text-shadow: 0 -1px 1px #000;
+	background-image: -moz-linear-gradient(top, 
+							#0D5D90, 
+							#00A3EF);
+	background-image: -webkit-gradient(linear,left top,left bottom,
+		color-stop(0, 		#0D5D90),
+		color-stop(1, 		#00A3EF));
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#0D5D90', EndColorStr='#00A3EF')";
+}
+.ui-btn-up-crush a.ui-link-inherit {
+	color: 					#fff;
+}
+
+.ui-btn-hover-f {
+	border: 1px solid 		#000;
+	background: 			#444444;
+	font-weight: bold;
+	color: 					#000;
+	text-shadow: 0 -1px 1px #fff;
+	background-image: -moz-linear-gradient(top, 
+							#FFFFFF, 
+							#669999);
+	background-image: -webkit-gradient(linear,left top,left bottom,
+		color-stop(0, 		#FFFFFF),
+		color-stop(1, 		#669999));
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFFFFF', EndColorStr='#669999')";
+}
+.ui-btn-hover-f a.ui-link-inherit {
+	color: 					#fff;
+}
+.ui-btn-down-f {
+	border: 1px solid 		#000;
+	background: 			#00BA19;
+	font-weight: bold;
+	color: 					#fff;
+	text-shadow: 0 -1px 1px #000;
+	background-image: -moz-linear-gradient(top, 
+							#669999, 
+							#FFFFFF);
+	background-image: -webkit-gradient(linear,left top,left bottom,
+		color-stop(0, 		#669999),
+		color-stop(1, 		#FFFFFF));
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#669999', EndColorStr='#FFFFFF')";
+}
+.ui-btn-down-f a.ui-link-inherit {
+	color: 					#000;
+}
+.ui-btn-up-f,
+.ui-btn-hover-f,
+.ui-btn-down-f {
+	font-family: CandelaBookItalic, Helvetica, Arial, sans-serif;
+	text-decoration: none;
+}
+

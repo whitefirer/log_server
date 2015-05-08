@@ -1,0 +1,268 @@
+﻿<html>
+<head>
+	<title>log列表</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+
+body {
+	height: 100%;
+	overflow: hidden;
+	font-size: 100%;
+	padding: 0;
+	margin: 0;
+	text-align:left;
+}
+
+div#out {
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	word-break:break-all;
+}
+
+div#gaid { 
+	position: absolute; 
+	top: expression(offsetParent.scrollTop + 0); 
+	height:30px;
+	left:0;
+	top:0;
+	z-index:200; 
+	width:100%;
+	padding-top:0px;
+	background-color:#A7D2ED;
+	text-align:left;
+	filter:alpha(opacity=90);
+} 
+.box {
+
+ -moz-border-radius:10px;
+
+ -webkit-border-radius: 10px;
+
+ border-radius: 15px;
+
+ }
+</style>	
+</head>
+<body onload="reload(1, 10)">
+	<div id="out">
+	<div id="gaid">
+	<table width="100%"  id="navbar"  border="1" cellspacing="0" cellpadding="0" bordercolorlight="#97D2E0" bordercolor="#97D2E0" bgcolor="#A7D2ED" align="center">
+	<td>
+		<input type='button' value="刷新"  onclick="location.reload()"/>
+		<b>应用分类：</b>
+		<a href="javascript:;" onclick="Filter('all', 'all');">all</a>
+		<a href="javascript:;" onclick="Filter('appname', 'appstart');">appstart</a>
+		<b>按排序：</b>
+		<input type="radio" checked="checked" name="sort" value="up_time" onclick="Sort('up_time');" /><b>更新时间</b>
+		<input type="radio" name="sort" value="frequency" onclick="Sort('frequency');" /><b>发生次数</b>
+		
+		<b>搜索：</b>
+		<input type='inputbox'  class='box' id='search' value="请输入应用名" name="search" onclick="if('请输入应用名'==this.value){this.value=''}" onblur="if(''==this.value){this.value='请输入应用名'}"/>
+		<input type='button' value="搜索"  bgcolor="#A7D2ED" onclick="var sv=document.getElementById('search').value;if('请输入应用名'==sv){Filter('all', 'all');}else{Filter('appname', sv.value);}"/>
+	</td>
+	</table>
+	</div>
+	<div  style="position:relative;top:30;padding:0;">
+	<table  width="100%"  id="mytable" border="1" cellspacing="0" cellpadding="0" bordercolorlight="#FFFFFF" bordercolor="#FFFFFF" bgcolor="#A7D2ED" align="center">
+		<thead id='thid'>
+			<td width="20%" bgcolor="#0EE6FF">
+				ID
+			</td>
+			<td width="77%" bgcolor="#0EE6FF">
+				log
+			</td>
+			<td width="3%" bgcolor="#0EE6FF">
+			</td>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<table id="pagetable"> 
+	</table>
+	</div>
+	</div>
+</body>
+
+<script type="text/javascript">
+var xmlHttp;
+var jsonlist;
+var flag = 1;
+var order_by = '"up_time"';
+var filter = '"all"';
+var filter_data = '"all"';
+var mytableHTML = '<thead id="thid"><td width="20%" bgcolor="#0EE6FF">ID</td><td width="77%" bgcolor="#0EE6FF">log</td><td width="3%" bgcolor="#0EE6FF"></td></thead><tbody></tbody>'
+
+function setTableInnerHTML(table, html) {//兼容IE
+    if(navigator && navigator.userAgent.match(/msie/i)){
+        var temp = table.ownerDocument.createElement('div');
+        temp.innerHTML = '<table><tbody>' + html + '</tbody></table>';
+        if(table.tBodies.length == 0){
+            var tbody=document.createElement("tbody");
+            table.appendChild(tbody);
+        }
+        table.replaceChild(temp.firstChild.firstChild, table.tBodies[0]);
+    } else {
+        table.innerHTML=html;
+    }
+}
+
+function Filter(f, fd) {
+	filter = '"' + f + '"';
+	filter_data = '"' + fd + '"';
+	setTableInnerHTML(document.getElementById("mytable"),  mytableHTML);
+	reload(1, 10);
+}
+
+function Sort(o) {
+	order_by = '"' + o + '"';
+	setTableInnerHTML(document.getElementById("mytable"),  mytableHTML);
+	reload(1, 10);
+}
+
+function pageJumpTo(page){
+	setTableInnerHTML(document.getElementById("mytable"),  mytableHTML);
+	reload(page, 10);
+}
+
+function createPagerLink(c,t){
+	//c: current page,t: total page,h: next,b: back foward, e: end
+	var h = "", b = 1, e = t;
+	if (t > 10) {
+		if (c > (t - 9)) {
+			b = t - 9;
+			if (b > (c - 4)) {
+				b = (c - 4) > 0 ? (c - 4) : 1;
+			}
+		} else if ((c - 4) > 1) {
+			b = c - 4;
+		}
+		
+		if (c < 5) {
+			e = 10;
+		} else if ((c + 5) < t) {
+			e = c + 5;
+		}
+	}
+	
+	if (b > 1) {
+		h += '<a href="javascript:;" onclick="pageJumpTo(1);">1</a>' + '&nbsp;'
+	}
+	
+	if (b > 2) {
+		h += '...&nbsp;';
+	}
+	
+	for(var i = b; i <= e; i++) {
+		if(i == c){
+			h += '<span class="current">'+ i +'</span>' + '&nbsp;';
+			continue;
+		}
+		h += '<a href="javascript:;" onclick="pageJumpTo('+ i +');">'+ i +'</a>' + '&nbsp;';
+	}
+	if(e != t) {
+		if(e + 1 != t) {
+			h += '...&nbsp;' + '&nbsp;';
+		}
+		h += '<a href="javascript:;" onclick="pageJumpTo('+ t +');">'+ t +'</a>' + '&nbsp;';
+	}
+	return h;
+}
+
+function createXMLHttpRequest() {
+	
+    if (window.XMLHttpRequest) {
+	
+		xmlHttp = new XMLHttpRequest();
+    } else if (window.ActiveXObject) { // Older IE.
+	
+		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+}
+
+function reload(page, pagelog){
+	
+	createXMLHttpRequest();
+	try {
+	
+		xmlHttp.onreadystatechange = handleStateChange;
+		xmlHttp.open("POST", "api?fc=log_list", true);//&action=list&"+ 
+							//"page=" + page + '&' +
+							//'pagelog=' + pagelog + '&' +
+							// parseInt(Math.random()*10000), true);
+		xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		xmlHttp.send("argObj={" + 
+					"'page':" + page + ',' +
+					"'pagelog':" + pagelog  + ',' +
+					"'order_by':" + order_by + ',' +
+					"'filter':" + filter + ',' +
+					"'filter_data':" + filter_data +
+					"}");
+	} catch(exception) {
+	
+		alert("你要访问的资源不存在");
+	}
+}
+
+function handleStateChange(){
+ 
+    if (xmlHttp.readyState == 4) { 
+	
+		if (xmlHttp.status == 200 || xmlHttp.status == 0) {
+		
+			var resp = eval('(' + xmlHttp.responseText+ ')');
+			jsonlist = resp['data'].list;
+			for (var index = 0; index < jsonlist.length; index++) {
+			
+				var mytbody = document.getElementById("mytable").tBodies[0];
+				var newTr = mytbody.insertRow(this.parentElement); 
+				var newTd0 = newTr.insertCell(0);  
+				var newTd1 = newTr.insertCell(1);
+				var newTd2 = newTr.insertCell(2);
+				var newTd3 = newTr.insertCell(3);
+				var newTd4 = newTr.insertCell(4);
+				
+				newTr.ondblclick = function (){
+					
+					if(this.cells[4].innerHTML.indexOf('展开') > 0) {
+						this.cells[0].style.display = 'none';
+						this.cells[1].style.display = '';
+						this.cells[2].style.display = 'none';
+						this.cells[3].style.display = '';
+						this.cells[4].innerHTML = this.cells[4].innerHTML.replace(/展开/g,"收缩");
+						flag = 0;
+					} else {
+						this.cells[0].style.display = '';
+						this.cells[1].style.display = 'none';
+						this.cells[2].style.display = '';
+						this.cells[3].style.display = 'none';
+						this.cells[4].innerHTML = this.cells[4].innerHTML.replace(/收缩/g,"展开");
+						flag = 1;
+					}
+				};
+				newTd0.style.backgroundColor = "#A7D2ED";
+				newTd1.style.backgroundColor = "#A7D2ED";
+				newTd1.style.display = 'none';
+				newTd3.style.display = 'none';
+				newTd2.style.backgroundColor = "#B0E6FF";
+				newTd3.style.backgroundColor = "#EEE6FF";
+				newTd0.innerHTML = jsonlist[index].id;
+				newTd2.innerHTML = "<font color='#000000'>" +
+								"应用程序名：" + jsonlist[index].appname + "&nbsp;&nbsp;&nbsp;&nbsp;" + 
+								"Caused by：" + jsonlist[index].caused_by + "&nbsp;&nbsp;&nbsp;&nbsp;" + 
+								"更新时间：" + jsonlist[index].up_time + "&nbsp;&nbsp;&nbsp;&nbsp;" + 
+								"发生次数：" + jsonlist[index].frequency + "&nbsp;&nbsp;&nbsp;&nbsp;" +
+								"</font>" ;
+				newTd1.innerHTML = "序号：" + newTd0.innerHTML + '<br />' + newTd2.innerHTML.replace(/&nbsp;&nbsp;&nbsp;&nbsp;/g,"<br />");
+				newTd3.innerHTML = "<font size='4'>" + 
+								jsonlist[index].logcontent.replace(/\r/g,"&nbsp;").replace(/\n/g,"<br />") + 
+								"</font>";
+				newTd4.innerHTML = '<a href="javascript:;" onclick="document.getElementById(\'mytable\').tBodies[0].rows[\'' + (jsonlist.length - index - 1 )+ '\'].ondblclick()">'+ '展开' +'</a>';
+			}
+        }
+		//setTableInnerHTML(document.getElementById("pagetable"), '');
+		setTableInnerHTML(document.getElementById("pagetable"), createPagerLink(resp['data'].page, resp['data'].pagetotal));
+    }
+}
+</script>
+</html>

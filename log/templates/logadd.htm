@@ -1,0 +1,22 @@
+﻿<html>
+<body>
+<form class="form-horizontal" action="/logadd" name="editform" id="editform" method="post">{% csrf_token %}
+	<div class="control-group">
+		<div class="controls">
+			<label class="control-label">name:</label>
+			<input name="name" id="name">
+			<label class="control-label">email:</label>
+			<input name="email" id="email">
+		</div>
+		
+		<label class="control-label">log text:</label>
+		<div class="controls">	
+			<textarea rows="6"  cols= "48" name="logcontent" id="logcontent"></textarea>
+		</div>
+
+		<button id="btn_submit" type="submit" class="btn btn-primary">提交内容</button>
+
+	</div>
+</form>
+</body>
+</html>
